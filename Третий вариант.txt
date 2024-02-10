@@ -1,0 +1,71 @@
+1.2
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите два целых числа (a < b):");
+        int a = int.Parse(Console.ReadLine());
+        int b = int.Parse(Console.ReadLine());
+
+        if (a >= b)
+        {
+            Console.WriteLine("Ошибка: a должно быть меньше b.");
+            return;
+        }
+
+        string result = "";
+        for (int i = a + 1; i < b; i++)
+        {
+            result += i + ",";
+        }
+
+        if (result.Length > 0)
+        {
+            // Убираем последнюю запятую
+            result = result.Remove(result.Length - 1);
+            Console.WriteLine(result);
+        }
+        else
+        {
+            Console.WriteLine("empty");
+        }
+    }
+}
+
+
+1.4 
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите первую строку:");
+        string test = Console.ReadLine();
+
+        Console.WriteLine("Введите вторую строку:");
+        string original = Console.ReadLine();
+
+        bool areAnagrams = AreAnagrams(test, original);
+        Console.WriteLine("Являются ли строки анаграммами? " + areAnagrams);
+    }
+
+    static bool AreAnagrams(string str1, string str2)
+    {
+        // Приводим обе строки к нижнему регистру для сравнения
+        str1 = str1.ToLower();
+        str2 = str2.ToLower();
+
+        // Преобразуем строки в массивы символов и сортируем их
+        char[] charArray1 = str1.ToCharArray();
+        char[] charArray2 = str2.ToCharArray();
+        Array.Sort(charArray1);
+        Array.Sort(charArray2);
+
+        // Сравниваем отсортированные массивы символов
+        return charArray1.SequenceEqual(charArray2);
+    }
+}

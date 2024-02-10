@@ -1,0 +1,128 @@
+1.1
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите целое число:");
+        int num = Convert.ToInt32(Console.ReadLine());
+
+        // Меняем знак числа на противоположный
+        num = -num;
+
+        Console.WriteLine("Число с противоположным знаком: " + num);
+    }
+}
+
+
+1.2
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите ФИО :");
+        string name = Console.ReadLine();
+
+        string correctedName = CorrectName(name);
+
+        Console.WriteLine("Исправленное ФИО : " + correctedName);
+    }
+
+    static string CorrectName(string name)
+    {
+        string[] nameParts = name.Split(' ');
+        string correctedName = "";
+
+        foreach (string part in nameParts)
+        {
+            string correctedPart = char.ToUpper(part[0]) + part.Substring(1);
+            correctedName += correctedPart + " ";
+        }
+
+        return correctedName.Trim();
+    }
+}
+
+1.3
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Игрок 1, введите свой выбор (камень, ножницы, бумага): ");
+        string playerOne = Console.ReadLine().ToLower();
+
+        Console.WriteLine("Игрок 2, введите свой выбор (камень, ножницы, бумага): ");
+        string playerTwo = Console.ReadLine().ToLower();
+
+        if (playerOne == playerTwo)
+        {
+            Console.WriteLine("Ничья");
+        }
+        else if (
+            (playerOne == "камень" && playerTwo == "ножницы") ||
+            (playerOne == "ножницы" && playerTwo == "бумага") ||
+            (playerOne == "бумага" && playerTwo == "камень"))
+        {
+            Console.WriteLine("Игрок 1 победил!");
+        }
+        else
+        {
+            Console.WriteLine("Игрок 2 победил!");
+        }
+    }
+}
+
+
+1.4 
+using System;
+
+class Program
+{
+    static int MinJumps(int start, int finish)
+    {
+        // Создаем массив для хранения минимального количества прыжков до каждой полки
+        int[] jumps = new int[finish + 1];
+
+        // Заполняем массив значениями, которые нельзя достичь (например, -1)
+        Array.Fill(jumps, -1);
+
+        // Исходная полка достижима за 0 прыжков
+        jumps[start] = 0;
+
+        // Вычисляем минимальное количество прыжков для каждой полки
+        for (int i = start; i < finish; i++)
+        {
+            if (jumps[i] == -1)
+                continue; // Если текущая полка недостижима, пропускаем
+
+            // Прыжок на одну полку вперед
+            if (i + 1 <= finish && (jumps[i + 1] == -1 || jumps[i] + 1 < jumps[i + 1]))
+                jumps[i + 1] = jumps[i] + 1;
+
+            // Прыжок на три полки вперед
+            if (i + 3 <= finish && (jumps[i + 3] == -1 || jumps[i] + 1 < jumps[i + 3]))
+                jumps[i + 3] = jumps[i] + 1;
+        }
+
+        // Возвращаем количество прыжков до финиша
+        return jumps[finish];
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите номер стартовой полки:");
+        int start = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Введите номер конечной полки:");
+        int finish = int.Parse(Console.ReadLine());
+
+        int minJumps = MinJumps(start, finish);
+        Console.WriteLine($"Минимальное количество прыжков: {minJumps}");
+    }
+}
+

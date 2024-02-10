@@ -1,0 +1,160 @@
+1.1 
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите целые числа, разделяя их пробелом:");
+
+        // Считываем строку ввода пользователя
+        string input = Console.ReadLine();
+
+        // Разделяем строку на отдельные числа по пробелам
+        string[] numbers = input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+        // Создаем массив для хранения чисел
+        int[] array = new int[numbers.Length];
+
+        // Преобразуем строки ввода в целые числа и заполняем массив
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            if (!int.TryParse(numbers[i], out array[i]))
+            {
+                Console.WriteLine($"Ошибка: {numbers[i]} не является целым числом.");
+                return;
+            }
+        }
+
+        // Выводим элементы массива в обратном порядке
+        Console.WriteLine("Массив в обратном порядке:");
+        for (int i = array.Length - 1; i >= 0; i--)
+        {
+            Console.Write(array[i] + " ");
+        }
+    }
+}
+
+1.2
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Ввод зарплаты
+        Console.WriteLine("Введите зарплату:");
+        int salary = int.Parse(Console.ReadLine());
+
+        // Ввод премии
+        Console.WriteLine("Есть ли премия? (true/false):");
+        bool bonus = bool.Parse(Console.ReadLine());
+
+        // Вычисление и вывод итоговой суммы
+        int total = CalculateTotalSalary(salary, bonus);
+        Console.WriteLine($"Итоговая сумма: ${total}");
+    }
+
+    static int CalculateTotalSalary(int salary, bool bonus)
+    {
+        if (bonus)
+        {
+            // Если премия есть, умножаем зарплату на 10
+            return salary * 10;
+        }
+        else
+        {
+            // Если премии нет, возвращаем просто зарплату
+            return salary;
+        }
+    }
+}
+
+
+1.3
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите количество строк для пирамиды:");
+        int rows = int.Parse(Console.ReadLine());
+
+        DrawPyramid(rows);
+    }
+
+    static void DrawPyramid(int rows)
+    {
+        for (int i = 1; i <= rows; i++)
+        {
+            // Рисуем пробелы перед символами '*'
+            for (int j = 1; j <= rows - i; j++)
+            {
+                Console.Write("_");
+            }
+
+            // Рисуем символы '*' для текущей строки
+            for (int k = 1; k <= 2 * i - 1; k++)
+            {
+                Console.Write("*");
+            }
+
+            // Переход на новую строку после завершения текущей
+            Console.WriteLine();
+        }
+    }
+}
+
+
+1.4
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Ввод данных для двух групп персонажей
+        Console.WriteLine("Введите первую строку персонажей:");
+        string x = Console.ReadLine();
+
+        Console.WriteLine("Введите вторую строку персонажей:");
+        string y = Console.ReadLine();
+
+        // Вычисление общей силы для каждой группы
+        int totalX = CalculateStrength(x);
+        int totalY = CalculateStrength(y);
+
+        // Определение победителя
+        if (totalX > totalY)
+        {
+            Console.WriteLine("Первая группа побеждает!");
+        }
+        else if (totalX < totalY)
+        {
+            Console.WriteLine("Вторая группа побеждает!");
+        }
+        else
+        {
+            Console.WriteLine("Ничья!");
+        }
+    }
+
+    // Метод для вычисления общей силы группы персонажей
+    static int CalculateStrength(string group)
+    {
+        int totalStrength = 0;
+        foreach (char c in group)
+        {
+            if (char.IsUpper(c))
+            {
+                totalStrength += c - 'A' + 1;
+            }
+            else
+            {
+                throw new ArgumentException("Строка должна состоять только из заглавных букв.");
+            }
+        }
+        return totalStrength;
+    }
+}
